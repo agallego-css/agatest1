@@ -1,31 +1,77 @@
-﻿# Description
+﻿# Exchange Room and Workspace Resource management
+## A module to assist with Room Resource management in Exchange and Exchange Online
 
-Insert a useful description for the agatest1 project here.
+**Installation:**
+- Fork repository to your local machine
+- Import the module into powershell:
+```powershell
+Import-Module 'C:\<fork-installation-path>\Exo.RoomsManagement.psd1'
+```
 
-Remember, it's the first thing a visitor will see.
+---
+**<h4 id="requirements">Requirements:</h4>**
+- [MSOnline Module for PowerShell](https://www.powershellgallery.com/packages/MSOnline/1.1.183.66)
+- [ExchangeOnlineManagement Module for PowerShell](https://www.powershellgallery.com/packages/ExchangeOnlineManagement/2.0.6-Preview6)
+- [BingMaps API Key](https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key)
+<br><br>
+## **Usage:**
 
-# Project Setup Instructions
-## Working with the layout
+---
+### Connect/Disconnect to and from Services
+<br> Connects to the ExchangeOnline Shell, MSOL Shell, AzureAD Shell, and MSGraph Shell. 
 
-- Don't touch the psm1 file
-- Place functions you export in `functions/` (can have subfolders)
-- Place private/internal functions invisible to the user in `internal/functions` (can have subfolders)
-- Don't add code directly to the `postimport.ps1` or `preimport.ps1`.
-  Those files are designed to import other files only.
-- When adding files & folders, make sure they are covered by either `postimport.ps1` or `preimport.ps1`.
-  This adds them to both the import and the build sequence.
+Example:
 
-## Setting up CI/CD
+```powershell
+Connect-Services
+```
 
-> To create a PR validation pipeline, set up tasks like this:
+```powershell
+Disconnect-Services
+```
 
-- Install Prerequisites (PowerShell Task; VSTS-Prerequisites.ps1)
-- Validate (PowerShell Task; VSTS-Validate.ps1)
-- Publish Test Results (Publish Test Results; NUnit format; Run no matter what)
+---
+### Room Reports
+<br> Outputs a list of all room lists or specified roomlists, their members, place objects, and graph object in one convenient table
 
-> To create a build/publish pipeline, set up tasks like this:
+Example:
+```powershell
+Get-RoomReport -RoomList <RoomList_Name> | FT RoomList,DisplayName,Building,City,Floor,*Graph*
+```
+```powershell
+Get-RoomReport -RoomList <RoomList_Name1>,<RoomList_Name2> | FT RoomList,DisplayName,Building,City,Floor,*Graph*
+```
 
-- Install Prerequisites (PowerShell Task; VSTS-Prerequisites.ps1)
-- Validate (PowerShell Task; VSTS-Validate.ps1)
-- Build (PowerShell Task; VSTS-Build.ps1)
-- Publish Test Results (Publish Test Results; NUnit format; Run no matter what)
+Example 2: Generates output to csv file - filepath defaults to current user's documents folder. 
+```powershell
+Get-RoomReport -FilePath <Path_to_Directory> -ToCsv 
+```
+```powershell
+Get-RoomReport -RoomList <RoomList_Name> -FilePath <Path_to_Directory> -ToCsv 
+```
+
+---
+### Create Room Lists
+<br> Generates a room list, with room mailboxes for the specified city name. 
+
+- '-BingMapsKey' parameter requires a Bing Maps API key. [(*See Requirements*)](#requirements)
+
+Example: 
+```powershell
+New-LabRoomList -City "Dallas" -IncludeWorkspaces $true
+```
+```powershell
+New-LabRoomList -City "Dallas","Sacramento","Washington D.C." -BingMapsKey <Required_API_Key> -BuildingsPerCity 3 -RoomsPerBuilding 3
+```
+
+---
+### Remove Rooms and Room Lists
+<br> Removes all objects (that do not have a Legal hold / retention / or eDiscovery hold) from environment. (EXO & MSOL)
+
+Example:
+```powershell
+Remove-RoomsByName -SearchString "RoomName"
+```
+```powershell
+Remove-RoomsByName -SearchString "RoomName1","Room Name 2" -Confirm:$false
+```
