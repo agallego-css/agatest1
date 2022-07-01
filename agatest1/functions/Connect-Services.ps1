@@ -20,8 +20,8 @@ function Connect-Services() {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseSingularNouns", "")]
     [CmdletBinding()]
     param(
-        #[Parameter(Mandatory=$false)]
-        #[boolean]$OnPrem=$false
+        [Parameter(Mandatory=$false)]
+        [boolean]$OnPrem=$false
     )
     if ($null -eq $creds) {
         $creds = get-credential -Message "Please enter your credentials, make sure you are using a global administrator account for 'AzureAD', 'ExcangeOnline', and 'MSGraph'"
