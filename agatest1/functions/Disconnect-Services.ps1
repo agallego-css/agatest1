@@ -12,8 +12,13 @@ function Disconnect-Services() {
     .NOTES
     Re-connection to services will not require to re-enter credentials unless module is unloaded, or Powershell is closed. 
     #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseSingularNouns", "")]
+    [CmdletBinding()]
+    param(
+        # Parameters
+    )
     disconnect-azuread;
     Disconnect-ExchangeOnline -Confirm:$false;
-    Disconnect-Graph;
+    Disconnect-MgGraph;
     Disconnect-MsolService;
 }

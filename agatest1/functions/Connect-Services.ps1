@@ -17,21 +17,22 @@ function Connect-Services() {
     Support for on-prem connections via remote powershell planned in future releases.
 
     #>
-    <#[CmdletBinding()]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseSingularNouns", "")]
+    [CmdletBinding()]
     param(
-        [Parameter(Mandatory=$false)]
-        [boolean]$OnPrem=$false
-    )#>
-    if ($null -eq $global:creds) {
-        $global:creds = get-credential -Message "Please enter your credentials, make sure you are using a global administrator account for 'AzureAD', 'ExcangeOnline', and 'MSGraph'"
+        #[Parameter(Mandatory=$false)]
+        #[boolean]$OnPrem=$false
+    )
+    if ($null -eq $creds) {
+        $creds = get-credential -Message "Please enter your credentials, make sure you are using a global administrator account for 'AzureAD', 'ExcangeOnline', and 'MSGraph'"
 
     }
     <#
     if($true -eq $OnPrem) {
         Connect-OnPrem -Credential $global:creds
     }#>
-    Connect-Azure -Credential $global:creds
-    Connect-Exo -Credential $global:creds
+    Connect-Azure -Credential $creds
+    Connect-Exo -Credential $creds
     Connect-Places
-    Connect-Msol -Credential $global:creds
+    Connect-Msol -Credential $creds
 }

@@ -1,4 +1,5 @@
 function Connect-Exo() {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidUsingWriteHost", "")]
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true)]

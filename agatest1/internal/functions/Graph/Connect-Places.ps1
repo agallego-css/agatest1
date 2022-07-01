@@ -1,7 +1,10 @@
 function Connect-Places() {
-    
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseSingularNouns", "")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidUsingWriteHost", "")]
+    [CmdletBinding()]
+    Param( )
     write-host "Connecting to Graph API, please approve permissions if prompted." -ForegroundColor Yellow
-    $graph = Connect-Graph -Scopes "Place.ReadWrite.All","User.Read.All"
+    $graph = Connect-MgGraph -Scopes "Place.ReadWrite.All","User.Read.All"
     #Select-MgProfile -Name "v1.0"
     write-host $graph -ForegroundColor Green
     

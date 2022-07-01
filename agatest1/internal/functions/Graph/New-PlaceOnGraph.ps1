@@ -1,5 +1,79 @@
 function New-PlaceOnGraph() {
-    [CmdletBinding()]
+    <#
+    .SYNOPSIS
+    Short description
+    
+    .DESCRIPTION
+    Long description
+    
+    .PARAMETER City
+    Parameter description
+    
+    .PARAMETER CountryOrRegion
+    Parameter description
+    
+    .PARAMETER PostalCode
+    Parameter description
+    
+    .PARAMETER State
+    Parameter description
+    
+    .PARAMETER Street
+    Parameter description
+    
+    .PARAMETER DisplayedName
+    Parameter description
+    
+    .PARAMETER PhoneNumber
+    Parameter description
+    
+    .PARAMETER NickName
+    Parameter description
+    
+    .PARAMETER EmailAddress
+    Parameter description
+    
+    .PARAMETER Capacity
+    Parameter description
+    
+    .PARAMETER BookingType
+    Parameter description
+    
+    .PARAMETER IsWheelChairAccessible
+    Parameter description
+    
+    .PARAMETER Tags
+    Parameter description
+    
+    .PARAMETER Accuracy
+    Parameter description
+    
+    .PARAMETER Altitude
+    Parameter description
+    
+    .PARAMETER AltitudeAccuracy
+    Parameter description
+    
+    .PARAMETER Latitude
+    Parameter description
+    
+    .PARAMETER Longitude
+    Parameter description
+
+    .PARAMETER Confirm
+    If this switch is enabled, you will be prompted for confirmation before executing any operations that change state.
+
+    .PARAMETER WhatIf
+    If this switch is enabled, no actions are performed but informational messages will be displayed that explain what would happen if the command were to run.
+    
+    .EXAMPLE
+    An example
+    
+    .NOTES
+    General notes
+    #>
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseOutputTypeCorrectly", "")]
+    [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = 'Low')]
     Param(
         [Parameter(Mandatory=$true)]
         [string] $City,
