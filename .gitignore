@@ -1,0 +1,22 @@
+﻿
+# ignore the settings folder and files for VSCode and PSS
+.vscode/*
+*.psproj
+*TempPoint*
+
+# Ignore staging info from Visual Studio
+library/agatest1/.vs/*
+library/agatest1/agatest1/bin/*
+library/agatest1/agatest1/obj/*
+
+# ignore PowerShell Studio MetaData
+agatest1/agatest1.psproj
+agatest1/agatest1.psproj.bak
+agatest1/agatest1.psprojs
+agatest1/agatest1.psproj
+
+# ignore the TestResults
+TestResults/*
+
+# ignore the publishing Directory
+publish/*
